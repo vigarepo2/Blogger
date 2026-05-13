@@ -1,0 +1,15 @@
+<nav class='flex mb-6 text-sm text-gray-400' aria-label='Breadcrumb'>
+  <ol class='flex items-center space-x-2'>
+    <li><a href='/' class='hover:text-blue-600 transition-colors'>Home</a></li>
+    <b:if cond='data:post.labels'>
+      <li class='flex items-center space-x-2'>
+        <span>/</span>
+        <a expr:href='data:post.labels.first.url' class='hover:text-blue-600 transition-colors'><data:post.labels.first.name/></a>
+      </li>
+    </b:if>
+    <li class='flex items-center space-x-2'>
+      <span>/</span>
+      <span class='text-gray-600 truncate max-w-[150px]'><data:post.title/></span>
+    </li>
+  </ol>
+</nav>
