@@ -1,0 +1,21 @@
+<script type='application/ld+json'>{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;BlogPosting&quot;,
+  &quot;mainEntityOfPage&quot;: {
+    &quot;@type&quot;: &quot;WebPage&quot;,
+    &quot;@id&quot;: &quot;<data:post.url.canonical.jsonEscaped/>&quot;
+  },
+  &quot;headline&quot;: &quot;<data:post.title.jsonEscaped/>&quot;,
+  &quot;image&quot;: [
+    &quot;<data:post.featuredImage.jsonEscaped/>&quot;
+  ],
+  &quot;datePublished&quot;: &quot;<data:post.date.iso8601.jsonEscaped/>&quot;,
+  &quot;author&quot;: {
+    &quot;@type&quot;: &quot;Person&quot;,
+    &quot;name&quot;: &quot;<data:post.author.name.jsonEscaped/>&quot;
+  },
+  &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;<data:blog.title.jsonEscaped/>&quot;
+  }
+}</script>
