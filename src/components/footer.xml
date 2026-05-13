@@ -1,0 +1,13 @@
+<footer class='mt-20 border-t border-gray-100 bg-gray-50/50'>
+    <div class='max-w-6xl mx-auto px-4 py-12'>
+        <div class='flex flex-col md:flex-row justify-between items-center gap-6'>
+            <div class='text-sm text-gray-500 text-center md:text-left'>
+                <p>&#169; <span id='year'></span> <data:blog.title/>. Built with Nexus UI.</p>
+            </div>
+
+            <b:section id='footer-links' class='flex space-x-6 text-sm font-medium text-gray-600' showaddelement='yes'>
+                <b:widget id='Text1' locked='false' title='Footer Links' type='Text'/>
+            </b:section>
+        </div>
+    </div>
+</footer>
