@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <title><data:view.title.escaped/></title>
+    <b:include data='blog' name='all-head-content'/>
+    
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap' rel='stylesheet'/>
+    <script src='https://cdn.tailwindcss.com'></script>
+
+    <b:skin><![CDATA[
+        {{VARIABLES}}
+        {{CSS}}
+    ]]></b:skin>
+</head>
+<body class='bg-white text-gray-900 transition-colors duration-300'>
+    
+    {{COMP_HEADER}}
+
+    <main class='max-w-6xl mx-auto px-4 py-10'>
+        <b:section id='main-content' showaddelement='yes'>
+            <b:widget id='Blog1' locked='true' title='Posts' type='Blog'>
+                <b:includable id='main'>
+                    {{COMP_LOOP}}
+                </b:includable>
+            </b:widget>
+        </b:section>
+    </main>
+
+    {{COMP_FOOTER}}
+
+    <script>
+        {{JS}}
+    </script>
+</body>
+</html>
