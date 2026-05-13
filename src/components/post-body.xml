@@ -1,0 +1,32 @@
+<article class='prose prose-slate max-w-none'>
+    <header class='mb-10 text-center'>
+        <b:if cond='data:post.labels'>
+            <span class='text-blue-600 font-semibold text-sm uppercase tracking-widest'><data:post.labels.first.name/></span>
+        </b:if>
+        <h1 class='text-4xl md:text-5xl font-extrabold tracking-tight mt-4 mb-6'><data:post.title/></h1>
+        <div class='flex items-center justify-center space-x-4 text-gray-500 text-sm'>
+            <img class='w-10 h-10 rounded-full' expr:src='data:post.author.authorPhoto.url' />
+            <div class='text-left'>
+                <p class='font-medium text-gray-900'><data:post.author.name/></p>
+                <p><data:post.date/></p>
+            </div>
+        </div>
+    </header>
+
+    <b:if cond='data:post.featuredImage'>
+        <div class='mb-12 rounded-3xl overflow-hidden shadow-2xl'>
+            <img class='w-full object-cover' expr:src='data:post.featuredImage' />
+        </div>
+    </b:if>
+
+    <div class='post-body text-lg text-gray-700'>
+        <data:post.body/>
+    </div>
+
+    <footer class='mt-16 pt-8 border-t border-gray-100 flex justify-between items-center'>
+        <div class='flex space-x-4'>
+            <span class='font-bold uppercase text-xs text-gray-400'>Share:</span>
+            <a class='text-gray-400 hover:text-blue-600' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url'>Twitter</a>
+        </div>
+    </footer>
+</article>
