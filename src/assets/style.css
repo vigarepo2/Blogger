@@ -1,0 +1,4 @@
+/* Custom resets for Blogger elements */
+.widget-item { transition: transform 0.2s ease; }
+.dark body { background-color: #0f172a; color: #f8fafc; }
+.dark .bg-white { background-color: #1e293b !important; }
