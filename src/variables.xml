@@ -1,0 +1,18 @@
+/* Variable Definitions */
+<b:variable default='#1a73e8' name='key.color' type='color' value='#1a73e8'/>
+<b:variable default='#ffffff' name='bg.color' type='color' value='#ffffff'/>
+<b:variable default='#111827' name='text.color' type='color' value='#111827'/>
+<b:variable default='16px Inter, sans-serif' name='body.font' type='font' value='16px Inter, sans-serif'/>
+
+/* Custom CSS using variables */
+:root {
+  --primary: $(key.color);
+  --bg-main: $(bg.color);
+  --text-main: $(text.color);
+}
+
+body {
+  font: $(body.font);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
