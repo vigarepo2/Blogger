@@ -6,23 +6,43 @@
     <title><data:view.title.escaped/></title>
     <b:include data='blog' name='all-head-content'/>
     
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap' rel='stylesheet'/>
     <script src='https://cdn.tailwindcss.com'></script>
 
     <b:skin><![CDATA[
         {{VARIABLES}}
         {{CSS}}
+        /* Professional Content Resets */
+        .post-body img { max-width: 100%; height: auto; border-radius: 12px; }
+        .post-body p { margin-bottom: 1.5rem; line-height: 1.8; }
+        .post-body h2 { font-size: 1.875rem; font-weight: 700; margin: 2rem 0 1rem; }
     ]]></b:skin>
 </head>
 <body class='bg-white text-gray-900 transition-colors duration-300'>
     
     {{COMP_HEADER}}
 
-    <main class='max-w-6xl mx-auto px-4 py-10'>
+    <main class='max-w-4xl mx-auto px-4 py-12'>
         <b:section id='main-content' showaddelement='yes'>
-            <b:widget id='Blog1' locked='true' title='Posts' type='Blog'>
+            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
                 <b:includable id='main'>
-                    {{COMP_LOOP}}
+                    
+                    <b:if cond='data:view.isMultipleItems'>
+                        {{COMP_LOOP}}
+                    </b:if>
+
+                    <b:if cond='data:view.isPost'>
+                        <b:loop values='data:posts' var='post'>
+                            {{COMP_POST_BODY}}
+                        </b:loop>
+                    </b:if>
+
+                    <b:if cond='data:view.isPage'>
+                        <b:loop values='data:posts' var='post'>
+                            {{COMP_STATIC}}
+                        </b:loop>
+                    </b:if>
+
                 </b:includable>
             </b:widget>
         </b:section>
@@ -30,8 +50,6 @@
 
     {{COMP_FOOTER}}
 
-    <script>
-        {{JS}}
-    </script>
+    <script>{{JS}}</script>
 </body>
 </html>
