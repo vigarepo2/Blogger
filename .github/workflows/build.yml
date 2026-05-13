@@ -1,0 +1,22 @@
+name: Build Template
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Compile XML
+        run: python build.py
+      - name: Upload Result
+        uses: actions/upload-artifact@v3
+        with:
+          name: Final-Blogger-Theme
+          path: dist/theme.xml
