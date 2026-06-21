@@ -1,0 +1,91 @@
+name: Build Blogger Template
+
+on:
+  workflow_dispatch:
+    inputs:
+      output_name:
+        description: 'Output XML filename without extension'
+        required: true
+        default: 'nova-blogger-pro'
+        type: string
+      minify:
+        description: 'Remove extra blank lines safely'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  TEMPLATE_FILE: theme.xml
+
+jobs:
+  build:
+    name: Validate and export Blogger XML
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Blogger template
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import xml.etree.ElementTree as ET
+
+          src = Path('${{ env.TEMPLATE_FILE }}')
+          if not src.exists():
+              raise SystemExit(f'Missing {src}')
+
+          text = src.read_text(encoding='utf-8')
+          ET.fromstring(text)
+
+          required = {
+              'Blogger namespace': "xmlns:b='http://www.google.com/2005/gml/b'",
+              'Blogger skin': '<b:skin><![CDATA[',
+              'Main section': "id='main'",
+              'Blog widget': "type='Blog'",
+              'Responsive flag': "b:responsive='true'",
+          }
+          missing = [name for name, token in required.items() if token not in text]
+          if missing:
+              raise SystemExit('Missing required Blogger parts: ' + ', '.join(missing))
+
+          widget_count = len(re.findall(r'<b:widget\b', text))
+          section_count = len(re.findall(r'<b:section\b', text))
+          if widget_count < 5 or section_count < 4:
+              raise SystemExit(f'Not enough Blogger layout support: {widget_count} widgets, {section_count} sections')
+
+          print('Blogger XML validation passed')
+          print(f'Sections: {section_count}')
+          print(f'Widgets: {widget_count}')
+          print(f'Size: {len(text.encode("utf-8")):,} bytes')
+
+      - name: Export uploadable template
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          name = '${{ github.event.inputs.output_name }}'.strip() or 'nova-blogger-pro'
+          safe = re.sub(r'[^A-Za-z0-9._-]+', '-', name).strip('-') or 'nova-blogger-pro'
+          text = Path('${{ env.TEMPLATE_FILE }}').read_text(encoding='utf-8')
+
+          if '${{ github.event.inputs.minify }}'.lower() == 'true':
+              text = re.sub(r'\n{3,}', '\n\n', text)
+              text = re.sub(r'[ \t]+\n', '\n', text)
+
+          out_dir = Path('dist')
+          out_dir.mkdir(exist_ok=True)
+          out_file = out_dir / f'{safe}.xml'
+          out_file.write_text(text, encoding='utf-8')
+          print(f'Exported {out_file}')
+
+      - name: Upload Blogger XML artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blogger-template-xml
+          path: dist/*.xml
+          if-no-files-found: error
