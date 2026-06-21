@@ -1,9 +1,0 @@
-<b:variable default='#000000' name='text.primary' type='color' value='#000000'/>
-<b:variable default='#4F46E5' name='brand.accent' type='color' value='#4F46E5'/>
-<b:variable default='20px' name='content.font.size' type='length' value='20px'/>
-
-:root {
-  --text-primary: $(text.primary);
-  --brand: $(brand.accent);
-  --content-size: $(content.font.size);
-}
